@@ -30,7 +30,7 @@
     </Window.Resources>
     <Grid VerticalAlignment="Top">
         <Button Content="Dodaj Kontakt" VerticalAlignment="Top" HorizontalAlignment="Right" Height="35" Width="132" Margin="0,10,20,0"></Button>
-        <TextBlock Text="Ksiazka telefoniczna" FontSize="50" FontWeight="Bold" Foreground="#FFECE20C" FontFamily="Bahnschrift" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" Height="62" />
+        <TextBlock Text="Ksiazka telefoniczna " FontSize="50" FontWeight="Bold" Foreground="#FFECE20C" FontFamily="Bahnschrift" VerticalAlignment="Top" HorizontalAlignment="Left" Width="600" Height="62" />
         <DataGrid Foreground="White" Background="#FF6A6A6A" Name="data1" BorderBrush="#FF0081FF" Margin="20,67,20,15" RenderTransformOrigin="0.5,0.5">
         </DataGrid>
     </Grid>
