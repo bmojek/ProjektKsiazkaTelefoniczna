@@ -20,9 +20,31 @@ namespace ProjektKsiazkaTelefoniczna
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Osoby> Osoby { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+
+            DataTelContext db = new DataTelContext();
+
+            var q1 = from o in db.Osoby
+                     orderby o.Imie ascending
+                     select new
+                     {
+                         Imie = o.Imie,
+                         Nazwisko = o.Nazwisko,
+                         NrTelefonu = o.NrTel,
+                         Email = o.Email,
+                         Adres = o.Adres
+                     };
+
+            data1.ItemsSource = q1.ToList();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            data1.Visibility = Visibility.Hidden;
         }
     }
 }
