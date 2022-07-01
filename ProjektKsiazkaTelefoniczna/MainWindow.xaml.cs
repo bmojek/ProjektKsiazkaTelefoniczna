@@ -42,9 +42,24 @@ namespace ProjektKsiazkaTelefoniczna
             data1.ItemsSource = q1.ToList();
         }
 
+        private bool visable = true;
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            data1.Visibility = Visibility.Hidden;
+            if (visable == true)
+            {
+                data1.Visibility = Visibility.Hidden;
+                formAdd.Visibility = Visibility.Visible;
+                addContact.Content = "Kontakty";
+                visable = false;
+            }
+            else
+            {
+                data1.Visibility = Visibility.Visible;
+                formAdd.Visibility = Visibility.Hidden;
+                addContact.Content = "Dodaj Kontakt";
+                visable = true;
+            }
         }
     }
 }
