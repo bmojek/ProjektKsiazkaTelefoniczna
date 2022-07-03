@@ -79,10 +79,15 @@ namespace ProjektKsiazkaTelefoniczna
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-            Regex name = new Regex(@"^[\w-\.]");
+            Regex regex1 = new Regex(@"^([0-9]+(-[0-9]+)+)$");
             if (!regex.IsMatch(emailAdd.Text))
             {
                 errorMessage.Content = "Błędne dane"; emailAdd.BorderBrush = Brushes.Red;
+                if (!regex1.IsMatch(nrtelAdd.Text))
+                {
+                    errorMessage.Content = "Błędne dane";
+                    nrtelAdd.BorderBrush = Brushes.Red;
+                }
             }
             else
             {
