@@ -43,7 +43,8 @@
             <TextBox Name="emailAdd" TextWrapping="Wrap" Width="161" Height="29" FontSize="16" Opacity="0.7" TextDecorations="{x:Null}" FontStyle="Normal" Canvas.Left="-19" Canvas.Top="33" />
             <Label Content="Adres" Foreground="White" FontSize="24" Canvas.Left="-174" Canvas.Top="71" />
             <TextBox  Name="adresAdd" TextWrapping="Wrap" Width="161" Height="29" FontSize="16" Opacity="0.7" TextDecorations="{x:Null}" FontStyle="Normal" Canvas.Left="-19" Canvas.Top="84" />
-            <Button Content="Dodaj" Canvas.Left="62" Canvas.Top="140" Height="27" Width="80" />
+            <Button Content="Dodaj" Click="Button_Click_1" Canvas.Left="62" Canvas.Top="140" Height="27" Width="80" />
+            <Button Content="Wyczyść" Click="Button_Click_2"  Canvas.Top="140" Height="27" Width="80" />
         </Canvas>
     </Grid>
 </Window>

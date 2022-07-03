@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.SqlClient;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,25 +22,28 @@ namespace ProjektKsiazkaTelefoniczna
     public partial class MainWindow : Window
     {
         public List<Osoby> Osoby { get; set; }
+        private DataTelContext db = new DataTelContext();
 
-        public MainWindow()
+        private void LoadData()
         {
-            InitializeComponent();
-
-            DataTelContext db = new DataTelContext();
-
             var q1 = from o in db.Osoby
                      orderby o.Imie ascending
                      select new
                      {
-                         Imie = o.Imie,
-                         Nazwisko = o.Nazwisko,
-                         NrTelefonu = o.NrTel,
-                         Email = o.Email,
-                         Adres = o.Adres
+                         o.Imie,
+                         o.Nazwisko,
+                         o.NrTel,
+                         o.Email,
+                         o.Adres
                      };
 
             data1.ItemsSource = q1.ToList();
+        }
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            LoadData();
         }
 
         private bool visable = true;
@@ -60,6 +64,44 @@ namespace ProjektKsiazkaTelefoniczna
                 addContact.Content = "Dodaj Kontakt";
                 visable = true;
             }
+            LoadData();
+        }
+
+        private void ClearForm()
+        {
+            imieAdd.Text = "";
+            nazwiskoAdd.Text = "";
+            nrtelAdd.Text = "";
+            emailAdd.Text = "";
+            adresAdd.Text = "";
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Osoby nowaosoba = new Osoby()
+                {
+                    Imie = imieAdd.Text,
+                    Nazwisko = nazwiskoAdd.Text,
+                    NrTel = nrtelAdd.Text,
+                    Email = emailAdd.Text,
+                    Adres = adresAdd.Text
+                };
+                db.Osoby.Add(nowaosoba);
+                db.SaveChanges();
+                MessageBox.Show("Kontakt został dodany!");
+                ClearForm();
+            }
+            catch
+            {
+                MessageBox.Show("Błędne dane");
+            }
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ClearForm();
         }
     }
 }
