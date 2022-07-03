@@ -74,6 +74,9 @@ namespace ProjektKsiazkaTelefoniczna
             nrtelAdd.Text = "";
             emailAdd.Text = "";
             adresAdd.Text = "";
+            errorMessage.Content = null;
+            emailAdd.BorderBrush = null;
+            nrtelAdd.BorderBrush = null;
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
