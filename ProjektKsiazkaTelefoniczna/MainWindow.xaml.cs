@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace ProjektKsiazkaTelefoniczna
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public List<Osoby> Osoby { get; set; }
@@ -26,6 +24,7 @@ namespace ProjektKsiazkaTelefoniczna
 
         private void LoadData()
         {
+            Button button = new Button();
             var q1 = from o in db.Osoby
                      orderby o.Imie ascending
                      select new
@@ -34,9 +33,8 @@ namespace ProjektKsiazkaTelefoniczna
                          o.Nazwisko,
                          o.NrTel,
                          o.Email,
-                         o.Adres
+                         o.Adres,
                      };
-
             data1.ItemsSource = q1.ToList();
         }
 
@@ -54,6 +52,7 @@ namespace ProjektKsiazkaTelefoniczna
             {
                 data1.Visibility = Visibility.Hidden;
                 formAdd.Visibility = Visibility.Visible;
+                sortBtn.Visibility = Visibility.Hidden;
                 addContact.Content = "Kontakty";
                 visable = false;
             }
@@ -61,6 +60,7 @@ namespace ProjektKsiazkaTelefoniczna
             {
                 data1.Visibility = Visibility.Visible;
                 formAdd.Visibility = Visibility.Hidden;
+                sortBtn.Visibility = Visibility.Visible;
                 addContact.Content = "Dodaj Kontakt";
                 visable = true;
             }
@@ -78,7 +78,13 @@ namespace ProjektKsiazkaTelefoniczna
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            try
+            Regex regex = new Regex(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
+            Regex name = new Regex(@"^[\w-\.]");
+            if (!regex.IsMatch(emailAdd.Text))
+            {
+                errorMessage.Content = "Błędne dane"; emailAdd.BorderBrush = Brushes.Red;
+            }
+            else
             {
                 Osoby nowaosoba = new Osoby()
                 {
@@ -93,15 +99,27 @@ namespace ProjektKsiazkaTelefoniczna
                 MessageBox.Show("Kontakt został dodany!");
                 ClearForm();
             }
-            catch
-            {
-                MessageBox.Show("Błędne dane");
-            }
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ClearForm();
+        }
+
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            var q1 = from o in db.Osoby
+                     orderby o.OsobyId descending
+                     select new
+                     {
+                         o.Imie,
+                         o.Nazwisko,
+                         o.NrTel,
+                         o.Email,
+                         o.Adres
+                     };
+
+            data1.ItemsSource = q1.ToList();
         }
     }
 }
