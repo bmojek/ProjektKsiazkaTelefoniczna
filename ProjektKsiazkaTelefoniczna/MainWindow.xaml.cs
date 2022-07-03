@@ -103,6 +103,9 @@ namespace ProjektKsiazkaTelefoniczna
                 db.SaveChanges();
                 MessageBox.Show("Kontakt został dodany!");
                 ClearForm();
+                errorMessage.Content = null;
+                emailAdd.BorderBrush = null;
+                nrtelAdd.BorderBrush = null;
             }
         }
 
